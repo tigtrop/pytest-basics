@@ -42,10 +42,10 @@ def test_substraction(number1, number2):
     assert  int(answear[0]) == number1-number2
 
 @pytest.mark.parametrize('number1, number2', [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)])
-def test_division(number1, number2):
+def test_division(number1, number2, rounding_index):
     response = postOperation('divide', number1, number2)
     answear = response.json()['result']
-    assert  float(answear[0]) == number1/number2
+    assert  float(answear[0]) == round(number1/number2, int(rounding_index))
 
 @pytest.mark.parametrize('number1, number2', [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)])
 def test_multiplication(number1, number2):
