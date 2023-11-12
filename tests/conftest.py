@@ -1,4 +1,5 @@
 import pytest
+import selenium.webdriver
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -11,3 +12,12 @@ def pytest_addoption(parser):
 @pytest.fixture
 def rounding_index(request):
     return request.config.getoption("--rounding_index")
+
+@pytest.fixture
+def browser():
+    b = selenium.webdriver.Chrome()
+    b.implicitly_wait(10)
+
+    yield b
+
+    b.quit()
