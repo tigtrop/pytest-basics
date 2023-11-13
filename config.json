@@ -1,4 +1,4 @@
 {
-  "browser" : ["Chrome", "Firefox", "Headless Chrome"],
+  "browser" : "Chrome",
   "implicitly_wait" : 10
 }
