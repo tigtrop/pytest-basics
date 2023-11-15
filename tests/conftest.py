@@ -1,5 +1,6 @@
 import pytest
 import selenium.webdriver
+from chromedriver_py import binary_path
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -15,7 +16,10 @@ def rounding_index(request):
 
 @pytest.fixture
 def browser():
-    b = selenium.webdriver.Chrome()
+
+    svc = selenium.webdriver.ChromeService(executable_path=binary_path)
+    b = selenium.webdriver.Chrome(service=svc)
+    # b = selenium.webdriver.Chrome()
     b.implicitly_wait(10)
 
     yield b
