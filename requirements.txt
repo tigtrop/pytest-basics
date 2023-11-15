@@ -1,0 +1,4 @@
+selenium~=4.15.2
+pytest~=7.4.3
+requests~=2.31.0
+chromedriver_py~=119.0.6045.105
