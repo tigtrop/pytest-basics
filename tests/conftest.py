@@ -1,6 +1,7 @@
 import pytest
 import selenium.webdriver
 import json
+from chromedriver_py import binary_path
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -13,7 +14,6 @@ def pytest_addoption(parser):
 @pytest.fixture
 def rounding_index(request):
     return request.config.getoption("--rounding_index")
-
 
 @pytest.fixture
 def config(scope='session'):
@@ -32,7 +32,8 @@ def browser(config):
     if config['browser'] == 'Firefox':
         b = selenium.webdriver.Firefox()
     elif config['browser'] == 'Chrome':
-        b = selenium.webdriver.Chrome()
+        svc = selenium.webdriver.ChromeService(executable_path=binary_path)
+        b = selenium.webdriver.Chrome(service=svc)
     elif config['browser'] == 'Headless Chrome':
         opts = selenium.webdriver.ChromeOptions()
         opts.add_argument('headless')
