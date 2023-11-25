@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import json
+from hamcrest import *
 
 class FormPage:
 
@@ -16,6 +18,7 @@ class FormPage:
     DeliveryTimePicker = (By.CSS_SELECTOR, 'input[name="delivery"]')
     CommentField = (By.CSS_SELECTOR, 'textarea[name="comments"]')
     SubmitButton = (By.CSS_SELECTOR, 'button')
+    JSONdata = (By.CSS_SELECTOR, 'pre')
 
 
     URL = 'https://httpbin.org/forms/post'
@@ -77,6 +80,12 @@ class FormPage:
         submitButton = self.browser.find_element(*self.SubmitButton)
         submitButton.click()
 
+    def findJSON(self):
+        data = self.browser.find_element(*self.JSONdata)
+        json_data_as_text = data.text
+        parsed_data = json.loads(json_data_as_text)
+        return parsed_data
+
 ################################################
 
     def choosePizzaSize(self, size):
@@ -90,12 +99,37 @@ class FormPage:
             raise Exception("The pizza size is not supported")
 
     def addToppings(self, addBacon, addCheese, addOnion, addMushroom):
-        if addBacon == "Yes":
+        if addBacon == "bacon":
             self.addBacon()
-        if addCheese == "Yes":
+        if addCheese == "cheese":
             self.addCheese()
-        if addOnion == "Yes":
+        if addOnion == "onion":
             self.addOnion()
-        if addMushroom == "Yes":
+        if addMushroom == "mushrooms":
             self.addMushrooms()
 
+#######################################
+
+    def verifyName(self, name):
+        assert_that(self.findJSON()["form"]["custname"], equal_to(name))
+
+    def verifyPhone(self, phoneNumber):
+        assert_that(self.findJSON()["form"]["custtel"], equal_to(phoneNumber))
+    def verifyEmail(self, email):
+        assert_that(self.findJSON()["form"]["custemail"], equal_to(email))
+    def verifySize(self, size):
+        assert_that(self.findJSON()["form"]["size"], equal_to(size.lower()))
+    def verifyToppings(self, *arguments):
+        tops = []
+        for elem in arguments:
+            if elem != "No":
+                tops.append(elem)
+
+        if len(tops) == 1:
+            tops = tops[0]
+        assert_that(self.findJSON()["form"]["topping"], equal_to(tops))
+    def verifyTime(self, time):
+        assert_that(self.findJSON()["form"]["delivery"], equal_to(time))
+    def verifyComment(self, text):
+        assert_that(self.findJSON()["form"]["comments"], equal_to(text))
+    

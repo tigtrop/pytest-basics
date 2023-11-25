@@ -5,7 +5,7 @@ import json
 
 from pages.form_page import FormPage
 @pytest.mark.parametrize('customer_name, phone, email, size, addBacon, addCheese, addOnion, addMushroom, deliveryTime, comment',
-                         [('David', '09933165847', 'mail@test.com', 'Small', 'Yes', 'No', 'No', 'No', '13:00', 'Faster please')])
+                         [('David', '09933165847', 'mail@test.com', 'Small', 'bacon', 'No', 'onion', 'No', '13:00', 'Faster please')])
 def test_form_check(browser, customer_name, phone, email, size, addBacon, addOnion, addCheese, addMushroom, deliveryTime, comment):
     form_page = FormPage(browser)
 
@@ -27,6 +27,18 @@ def test_form_check(browser, customer_name, phone, email, size, addBacon, addOni
 
     form_page.clickSublit()
 
+    form_page.verifyName(customer_name)
 
+    form_page.verifyPhone(phone)
+
+    form_page.verifyEmail(email)
+
+    form_page.verifySize(size)
+
+    form_page.verifyToppings(addBacon, addCheese, addOnion, addMushroom)
+
+    form_page.verifyComment(comment)
+
+    form_page.verifyTime(deliveryTime)
 
     time.sleep(10)
