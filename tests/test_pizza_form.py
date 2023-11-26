@@ -1,11 +1,19 @@
 import pytest
-import selenium.webdriver
-import time
-import json
+import csv
 
 from pages.form_page import FormPage
+
+def read_csv():
+    with open('../test_data.csv') as csvfile:
+        csvreader = csv.reader(csvfile)
+
+        rows = []
+        for row in csvreader:
+            rows.append(row)
+        return rows
+
 @pytest.mark.parametrize('customer_name, phone, email, size, addBacon, addCheese, addOnion, addMushroom, deliveryTime, comment',
-                         [('David', '09933165847', 'mail@test.com', 'Small', 'bacon', 'No', 'onion', 'No', '13:00', 'Faster please')])
+                         read_csv())
 def test_form_check(browser, customer_name, phone, email, size, addBacon, addOnion, addCheese, addMushroom, deliveryTime, comment):
     form_page = FormPage(browser)
 
@@ -40,5 +48,3 @@ def test_form_check(browser, customer_name, phone, email, size, addBacon, addOni
     form_page.verifyComment(comment)
 
     form_page.verifyTime(deliveryTime)
-
-    time.sleep(10)
