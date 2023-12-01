@@ -39,7 +39,7 @@ def browser(config):
         opts.add_argument('headless')
         b = selenium.webdriver.Chrome(options=opts)
     else:
-        raise Exception(f'The "{config['browser']}" browser is not supported.')
+        raise Exception(f'The "{config[browser]}" browser is not supported.')
 
     b.implicitly_wait(config['implicitly_wait'])
 
