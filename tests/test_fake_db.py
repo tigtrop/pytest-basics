@@ -9,12 +9,18 @@ db_info_page = DB_info_Page()
 
 def test_db_info():
     db_page.open()
+
+    db_page.verify_db_name()
+
     db_page.click_db_info()
 
     db_info_page.verify_db_name()
     db_info_page.verify_db_creator()
 
-# def test_app_ids
+def test_app_ids():
+    db_page.open()
+
+
 
 
 # def test_get():

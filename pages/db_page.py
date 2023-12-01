@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from hamcrest import *
 
 class DB_Page:
 
@@ -38,4 +39,12 @@ class DB_Page:
     def click_db_info(self):
         db_info_link = self.browser.find_element(*self.DB_INFO_LINK)
         db_info_link.click()
+
+    def verify_db_name(self):
+        db_structure = self.get_db_structure()
+        db_name = self.browser.find_element(*self.DB_TITLE).text
+
+        assert_that(db_name, equal_to(db_structure["db_info"]["db_name"]))
+
+
 
