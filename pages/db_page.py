@@ -19,9 +19,13 @@ class DB_Page:
     DB_TITLE = (By.CSS_SELECTOR, 'h3 a[href="https://github.com/IlyaKnysh/fake_db"]')
     DB_CREATOR = (By.CSS_SELECTOR, 'h5 a')
     DB_INFO_LINK = (By.CSS_SELECTOR, 'a[href="/IlyaKnysh/fake_db/db_info"]')
+    DB_INFO_BADGE = (By.CSS_SELECTOR, DB_INFO_LINK[1] + '+sup')
     APP_IDS_LINK = (By.CSS_SELECTOR, 'a[href="/IlyaKnysh/fake_db/app_ids"]')
+    APP_IDS_BADGE = (By.CSS_SELECTOR, APP_IDS_LINK[1] + '+sup')
     AD_ZONES_LINK = (By.CSS_SELECTOR, 'a[href="/IlyaKnysh/fake_db/ad_zones"]')
+    AD_ZONES_BADGE = (By.CSS_SELECTOR, AD_ZONES_LINK[1] + '+sup')
     NETWORKS_LINK = (By.CSS_SELECTOR, 'a[href="/IlyaKnysh/fake_db/networks"]')
+    NETWORKS_BADGE = (By.CSS_SELECTOR, NETWORKS_LINK[1] + '+sup')
     JSONdata = (By.CSS_SELECTOR, 'pre')
 
     def open(self):
@@ -45,6 +49,18 @@ class DB_Page:
         db_name = self.browser.find_element(*self.DB_TITLE).text
 
         assert_that(db_name, equal_to(db_structure["db_info"]["db_name"]))
+
+    def verifyElementCount(self, linkSelector):
+        link = self.browser.find_element(*linkSelector)
+        badge = self.browser.find_element(By.CSS_SELECTOR,linkSelector[1] + '+ sup')
+        badgeNumber = badge.text
+
+        link.click()
+
+        json_page = self.findJSON()
+
+        assert_that(int(badgeNumber), equal_to(len(json_page)))
+
 
 
 

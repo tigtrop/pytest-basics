@@ -17,8 +17,10 @@ def test_db_info():
     db_info_page.verify_db_name()
     db_info_page.verify_db_creator()
 
-def test_app_ids():
+def test_app_ids_count():
     db_page.open()
+
+    db_page.verifyElementCount(db_page.APP_IDS_LINK)
 
 
 
