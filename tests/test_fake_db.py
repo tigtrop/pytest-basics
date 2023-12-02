@@ -17,10 +17,20 @@ def test_db_info():
     db_info_page.verify_db_name()
     db_info_page.verify_db_creator()
 
-def test_app_ids_count():
+def test_app_ids_badge():
     db_page.open()
 
     db_page.verifyElementCount(db_page.APP_IDS_LINK)
+
+def test_ad_zones_badge():
+    db_page.open()
+
+    db_page.verifyElementCount(db_page.AD_ZONES_LINK)
+
+def test_ad_zones_badge():
+    db_page.open()
+
+    db_page.verifyElementCount(db_page.NETWORKS_LINK)
 
 
 
