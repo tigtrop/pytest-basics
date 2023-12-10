@@ -19,20 +19,28 @@ def test_db_info(setup_test):
     db_info_page.verify_db_name()
     db_info_page.verify_db_creator()
 
-def test_app_ids_badge(setup_test):
+def test_app_ids_count(setup_test):
     db_page.verifyElementCount(db_page.APP_IDS_LINK)
 
-def test_ad_zones_badge(setup_test):
+def test_ad_zones_count(setup_test):
     db_page.verifyElementCount(db_page.AD_ZONES_LINK)
 
-def test_network_link_badge(setup_test):
+def test_network_link_count(setup_test):
     db_page.verifyElementCount(db_page.NETWORKS_LINK)
 
-def test_ad_zones_type(setup_test):
+def test_db_info_badge(setup_test):
+    db_page.verifyElementType(db_page.DB_INFO_LINK)
+
+def test_app_ids_badge(setup_test):
+    db_page.verifyElementType(db_page.APP_IDS_LINK)
+
+def test_ad_zones_badge(setup_test):
     db_page.verifyElementType(db_page.AD_ZONES_LINK)
 
-def test_db_info_type(setup_test):
-    db_page.verifyElementType(db_page.DB_INFO_LINK)
+def test_network_badge(setup_test):
+    db_page.verifyElementType(db_page.NETWORKS_LINK)
+
+
 
 
 
