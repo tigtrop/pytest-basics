@@ -27,11 +27,20 @@ def test_ad_zones_badge():
 
     db_page.verifyElementCount(db_page.AD_ZONES_LINK)
 
-def test_ad_zones_badge():
+def test_network_link_badge():
     db_page.open()
 
     db_page.verifyElementCount(db_page.NETWORKS_LINK)
 
+def test_ad_zones_type():
+    db_page.open()
+
+    db_page.verifyElementType(db_page.AD_ZONES_LINK)
+
+def test_db_info_type():
+    db_page.open()
+
+    db_page.verifyElementType(db_page.DB_INFO_LINK)
 
 
 

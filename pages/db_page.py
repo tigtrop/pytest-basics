@@ -61,6 +61,18 @@ class DB_Page:
 
         assert_that(int(badgeNumber), equal_to(len(json_page)))
 
+    def verifyElementType(self, linkSelector):
+        link = self.browser.find_element(*linkSelector)
+        badge = self.browser.find_element(By.CSS_SELECTOR, linkSelector[1] + '+ sup')
+        badgeType = type(badge.text)
+        badgeText = badge.text
+        link.click()
+
+        json_page = self.findJSON()
+        if type(dict()) == type(json_page):
+            assert_that(badgeText, equal_to('object'))
+        else:
+            assert_that(int(badgeText), equal_to(len(json_page)))
 
 
 
