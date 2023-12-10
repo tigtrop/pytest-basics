@@ -30,6 +30,9 @@ class DB_Page:
 
     def open(self):
         self.browser.get(self.base_url + self.db_ui)
+
+    def refresh(self):
+        self.browser.refresh()
     def get_db_structure(self):
         response = requests.get(self.base_url + self.db_endpoint, headers=self.headers)
         return response.json()
@@ -43,6 +46,18 @@ class DB_Page:
     def click_db_info(self):
         db_info_link = self.browser.find_element(*self.DB_INFO_LINK)
         db_info_link.click()
+
+    def click_app_ids(self):
+        app_ids_link = self.browser.find_element(*self.APP_IDS_LINK)
+        app_ids_link.click()
+
+    def click_ad_zones(self):
+        ad_zones_link = self.browser.find_element(*self.AD_ZONES_LINK)
+        ad_zones_link.click()
+
+    def click_networks(self):
+        networks_link = self.browser.find_element(*self.NETWORKS_LINK)
+        networks_link.click()
 
     def verify_db_name(self):
         db_structure = self.get_db_structure()
@@ -73,6 +88,10 @@ class DB_Page:
             assert_that(badgeText, equal_to('object'))
         else:
             assert_that(int(badgeText), equal_to(len(json_page)))
+
+    def checkBadgeValue(self, badgeSelector):
+        badge = self.browser.find_element(*badgeSelector)
+        return badge.text
 
 
 
