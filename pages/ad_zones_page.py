@@ -2,6 +2,10 @@ import requests
 from hamcrest import *
 from pages.db_page import DB_Page
 from functools import wraps
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 def check_status_code(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -29,7 +33,9 @@ class Ad_zones_page(DB_Page):
                 "zone": "intersitial",
                 "type": "interstitial_rewarded_video"
                 }
-
+        logger.info(f"Sending POST request to {self.base_url + self.ad_zones_endpoint} with JSON: {obj}")
         response = requests.post(self.base_url + self.ad_zones_endpoint, headers=self.headers, json=obj)
+        logger.info(f"Received response: {response.text}")
+
         return response
 
